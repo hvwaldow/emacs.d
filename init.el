@@ -65,7 +65,7 @@
 (require 'python)
 (setq
   python-shell-interpreter "ipython"
-  python-shell-interpreter-args "--pylab=tk"
+  ;;python-shell-interpreter-args "--pylab=tk"
   python-shell-prompt-regexp "In \\[[0-9]+\\]: "
   python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
   python-shell-completion-setup-code
@@ -115,6 +115,9 @@
   (shell-command-to-string "find . -path \"*/ess*/lisp\" -type d"))
 (add-to-list 'load-path ess-local-load-path)
 (load "ess-site")
+
+;;tramp
+(setq tramp-default-method "ssh")
 
 
 
