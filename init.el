@@ -52,14 +52,16 @@
 (setq inhibit-splash-screen t)
 (require 'fill-column-indicator)
 
+; global flycheck
+(require 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ; Python setup
-(require 'flycheck)
 (add-hook 'python-mode-hook 'fci-mode)
 
 (add-hook 'python-mode-hook (lambda() (setq fci-rule-column 80)))
 (add-hook 'python-mode-hook 'jedi:setup)
-(add-hook 'python-mode-hook 'flycheck-mode)
+; (add-hook 'python-mode-hook 'flycheck-mode)
 (setq jedi:complete-on-dot t)
 
 (require 'python)
@@ -124,6 +126,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(delete-selection-mode nil)
+ '(ispell-program-name "aspell")
  '(org-agenda-files (quote ("~/org/tasks.org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
