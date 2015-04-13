@@ -67,7 +67,7 @@
 (require 'python)
 (setq
   python-shell-interpreter "ipython"
-  python-shell-interpreter-args "--pylab=tk"
+  ;;python-shell-interpreter-args "--pylab=tk"
   python-shell-prompt-regexp "In \\[[0-9]+\\]: "
   python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
   python-shell-completion-setup-code
@@ -118,6 +118,9 @@
 (add-to-list 'load-path ess-local-load-path)
 (load "ess-site")
 
+;;tramp
+(setq tramp-default-method "ssh")
+
 
 
 (custom-set-variables
@@ -128,6 +131,9 @@
  '(delete-selection-mode nil)
  '(ispell-program-name "aspell")
  '(org-agenda-files (quote ("~/org/tasks.org"))))
+ '(org-agenda-files (quote ("~/org/tasks.org")))
+ '(split-height-threshold nil)
+ '(split-width-threshold 0))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
