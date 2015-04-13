@@ -130,7 +130,7 @@
  ;; If there is more than one, they won't work right.
  '(delete-selection-mode nil)
  '(ispell-program-name "aspell")
- '(org-agenda-files (quote ("~/org/tasks.org"))))
+ '(org-agenda-files (quote ("~/org/tasks.org")))
  '(org-agenda-files (quote ("~/org/tasks.org")))
  '(split-height-threshold nil)
  '(split-width-threshold 0))
