@@ -1,56 +1,23 @@
-; package management
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
-(package-initialize)
+;;; init.el --- main init file
 
-; list of packages
-(defvar required-packages
-  '(
-    color-theme
-    zenburn
-    markdown-mode
-    fill-column-indicator
-    flycheck
-    org
-    jedi
-    ess
-  ) "a list of packages to ensure are installed at launch.")
+;;; Commentary:
+;; just inlines specific init files
 
-;; Jedi requires the Python packages
-;; - virtualenv
-;; - Jedi
-;; - epc
-
-; auto-install missing packages
-(require 'cl)
-
-; method to check if all packages are installed
-(defun packages-installed-p ()
-  (loop for p in required-packages
-        when (not (package-installed-p p)) do (return nil)
-        finally (return t)))
-
-; if not all packages are installed, check one by one and install the missing ones.
-(unless (packages-installed-p)
-  ; check for new packages (package versions)
-  (message "%s" "Emacs is now refreshing its package database...")
-  (package-refresh-contents)
-  (message "%s" " done.")
-  ; install the missing packages
-  (dolist (p required-packages)
-    (when (not (package-installed-p p))
-      (package-install p))))
-
+;;; Code:
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+(load "package-management.el")
+; Color scheme
 (require 'zenburn)
 (zenburn)
-
-
+; no toolbar
 (tool-bar-mode -1)
+; no splash screen
 (setq inhibit-splash-screen t)
 (require 'fill-column-indicator)
+
+
+
+
 
 ; global flycheck
 (require 'flycheck)
