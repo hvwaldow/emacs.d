@@ -77,7 +77,7 @@
   python-shell-completion-string-code
     "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
 
-;activate org-mode
+;;activate org-mode
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cc" 'org-capture)
@@ -87,7 +87,7 @@
 (setq org-default-notes-file (concat "~/org" "/notes.org"))
 (define-key global-map "\C-cc" 'org-capture)
 
-;; markdown-mode
+;;markdown-mode
     (autoload 'markdown-mode "markdown-mode"
        "Major mode for editing Markdown files" t)
     (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
@@ -113,15 +113,12 @@
 (add-hook 'emacs-lisp-mode-hook 'my-set-font-to-fixed-width)
 
 ;; ess
-(defvar ess-local-load-path
-  (shell-command-to-string "find . -path \"*/ess*/lisp\" -type d"))
+(defvar ess-local-load-path "/home/hvwaldow/.emacs.d/elpa/ess-20150324.1456/lisp")
 (add-to-list 'load-path ess-local-load-path)
 (load "ess-site")
 
 ;;tramp
 (setq tramp-default-method "ssh")
-
-
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
