@@ -1,7 +1,8 @@
 ; package management
 (require 'package)
+
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+             '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (package-initialize)
@@ -56,13 +57,23 @@
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
+
+
+
+
+
 ; Python setup
 (add-hook 'python-mode-hook 'fci-mode)
-
 (add-hook 'python-mode-hook (lambda() (setq fci-rule-column 80)))
+; Jedi setup
+(setq special-display-buffer-names '("*jedi:doc*"))
+(setq jedi:setup-keys t)                      
+(setq jedi:tooltip-method nil)
+(setq jedi:complete-on-dot t)                 ; 
 (add-hook 'python-mode-hook 'jedi:setup)
-; (add-hook 'python-mode-hook 'flycheck-mode)
-(setq jedi:complete-on-dot t)
+
+
+
 
 (require 'python)
 (setq
