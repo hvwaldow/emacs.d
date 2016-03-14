@@ -18,6 +18,11 @@
     org
     jedi
     ess
+    jinja2-mode
+    flyspell
+    js2-mode
+    auto-complete
+    ac-js2
   ) "a list of packages to ensure are installed at launch.")
 
 ;; Jedi requires the Python packages
@@ -57,10 +62,25 @@
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
+; Jinja2 setup
+(add-hook 'jinja2-mode-hook 'fci-mode)
+(add-hook 'jinja2-mode-hook (lambda() (setq fci-rule-column 80)))
 
+; JS setup
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-hook 'js2-mode-hook 'ac-js2-mode)
+(add-hook 'js2-mode-hook 'fci-mode)
+(add-hook 'js2-mode-hook (lambda() (setq fci-rule-column 80)))
 
-
-
+(custom-set-variables  
+ '(js2-basic-offset 2)  
+ '(js2-bounce-indent-p t)
+ '(js2-highlight-level 3)
+ )
+(setq-default flycheck-disabled-checkers
+	      (append flycheck-disabled-checkers
+		      '(javascript-jshint)))
+(setq flycheck-checkers '(javascript-eslint))
 
 ; Python setup
 (add-hook 'python-mode-hook 'fci-mode)
@@ -71,8 +91,6 @@
 (setq jedi:tooltip-method nil)
 (setq jedi:complete-on-dot t)                 ; 
 (add-hook 'python-mode-hook 'jedi:setup)
-
-
 
 
 (require 'python)
@@ -127,6 +145,7 @@
 (defvar ess-local-load-path "/home/hvwaldow/.emacs.d/elpa/ess-20150324.1456/lisp")
 (add-to-list 'load-path ess-local-load-path)
 (load "ess-site")
+(setq ess-help-own-frame 'one)
 
 ;;tramp
 (setq tramp-default-method "ssh")
