@@ -131,14 +131,17 @@
 ;;tramp
 (setq tramp-default-method "ssh")
 
+;;css
+(setq css-indent-offset 2)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(delete-selection-mode nil)
+ '(indent-tabs-mode t)
  '(ispell-program-name "aspell")
- '(org-agenda-files (quote ("~/org/tasks.org")))
  '(org-agenda-files (quote ("~/org/tasks.org")))
  '(split-height-threshold nil)
  '(split-width-threshold 0))
