@@ -22,7 +22,8 @@
     flyspell
     js2-mode
     auto-complete
-    ac-js2
+    nodejs-repl
+;    ac-js2
   ) "a list of packages to ensure are installed at launch.")
 
 ;; Jedi requires the Python packages
@@ -67,20 +68,51 @@
 (add-hook 'jinja2-mode-hook (lambda() (setq fci-rule-column 80)))
 
 ; JS setup
+;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+;; (add-hook 'js2-mode-hook 'ac-js2-mode)
+;; (add-hook 'js2-mode-hook 'fci-mode)
+;; (add-hook 'js2-mode-hook (lambda() (setq fci-rule-column 80)))
+
+;; (custom-set-variables  
+;;  '(js2-basic-offset 2)  
+;;  '(js2-bounce-indent-p t)
+;;  '(js2-highlight-level 3)
+;;  )
+;; (setq-default flycheck-disabled-checkers
+;; 	      (append flycheck-disabled-checkers
+;; 		      '(javascript-jshint)))
+;; (setq flycheck-checkers '(javascript-eslint))
+
+;JS setup new
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(add-hook 'js2-mode-hook 'ac-js2-mode)
+;; (add-hook 'js2-mode-hook 'ac-js2-mode)
 (add-hook 'js2-mode-hook 'fci-mode)
 (add-hook 'js2-mode-hook (lambda() (setq fci-rule-column 80)))
-
 (custom-set-variables  
  '(js2-basic-offset 2)  
  '(js2-bounce-indent-p t)
  '(js2-highlight-level 3)
  )
-(setq-default flycheck-disabled-checkers
-	      (append flycheck-disabled-checkers
-		      '(javascript-jshint)))
-(setq flycheck-checkers '(javascript-eslint))
+
+;tern
+(add-to-list 'load-path "~/.emacs.d/tern/emacs/")
+(autoload 'tern-mode "tern.el" nil t)
+(add-hook 'js-mode-hook (lambda () (tern-mode t)))
+
+(eval-after-load 'tern
+  '(progn
+     (require 'tern-auto-complete)
+     (tern-ac-setup)))
+(defun set-tern-keys ()
+  "Use in tern-mode."
+  (local-set-key (kbd "<C-tab>") 'tern-ac-complete)
+  )
+(add-hook 'tern-mode-hook (lambda () (auto-complete-mode t)))
+(add-hook 'tern-mode-hook 'set-tern-keys)
+
+;nodejs-repl
+(require 'nodejs-repl)
+
 
 ; Python setup
 (add-hook 'python-mode-hook 'fci-mode)
