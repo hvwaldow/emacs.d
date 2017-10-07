@@ -53,7 +53,6 @@
 (require 'zenburn)
 (zenburn)
 
-
 (tool-bar-mode -1)
 (setq inhibit-splash-screen t)
 (require 'fill-column-indicator)
@@ -88,17 +87,15 @@
 ; Jedi setup
 (setq special-display-buffer-names '("*jedi:doc*"))
 (setq jedi:setup-keys t)                      
-(setq jedi:tooltip-method nil)
+(setq jedi:tooltip-method '(nil))
 (setq jedi:complete-on-dot t)                 ; 
 (add-hook 'python-mode-hook 'jedi:setup)
-
-
-
 
 (require 'python)
 (setq
   python-shell-interpreter "ipython"
   ;;python-shell-interpreter-args "--pylab=tk"
+  python-shell-interpreter-args "--simple-prompt"
   python-shell-prompt-regexp "In \\[[0-9]+\\]: "
   python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
   python-shell-completion-setup-code
@@ -142,6 +139,7 @@
 (add-hook 'org-mode-hook 'my-set-font-to-fixed-width)
 (add-hook 'markdown-mode-hook 'my-set-font-to-variable-width)
 (add-hook 'emacs-lisp-mode-hook 'my-set-font-to-fixed-width)
+(add-hook 'yaml-mode-hook 'my-set-font-to-fixed-width)
 
 ;; ess
 (defvar ess-local-load-path "/home/hvwaldow/.emacs.d/elpa/ess-20150324.1456/lisp")
