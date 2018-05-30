@@ -2,9 +2,9 @@
 (require 'package)
 
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/"))
+             '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+             '("marmalade" . "https://marmalade-repo.org/packages/") t)
 (package-initialize)
 
 ; list of packages
@@ -23,6 +23,9 @@
     js2-mode
     auto-complete
     ac-js2
+    yasnippet
+    yasnippet-snippets
+    nodejs-repl
   ) "a list of packages to ensure are installed at launch.")
 
 ;; Jedi requires the Python packages
@@ -71,12 +74,34 @@
 (add-hook 'js2-mode-hook 'ac-js2-mode)
 (add-hook 'js2-mode-hook 'fci-mode)
 (add-hook 'js2-mode-hook (lambda() (setq fci-rule-column 80)))
+(add-hook 'js-mode-hook
+	  (lambda ()
+	    (define-key js-mode-map (kbd "C-x C-e") 'nodejs-repl-send-last-expression)
+            (define-key js-mode-map (kbd "C-c C-j") 'nodejs-repl-send-line)
+            (define-key js-mode-map (kbd "C-c C-r") 'nodejs-repl-send-region)
+            (define-key js-mode-map (kbd "C-c C-l") 'nodejs-repl-load-file)
+            (define-key js-mode-map (kbd "C-c C-z") 'nodejs-repl-switch-to-repl)))
 
-(custom-set-variables  
- '(js2-basic-offset 2)  
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(delete-selection-mode nil)
+ '(ispell-program-name "aspell")
+ '(js2-basic-offset 2)
  '(js2-bounce-indent-p t)
  '(js2-highlight-level 3)
- )
+ '(org-agenda-files (quote ("~/org/tasks.org")))
+ '(org-file-apps
+   (quote
+    ((auto-mode . emacs)
+     ("\\.mm\\'" . default)
+     ("\\.x?html?\\'" . default)
+     ("\\.pdf\\'" . "evince %s")
+     ("\\.docx\\'" . "libreoffice %s"))))
+ '(split-height-threshold nil)
+ '(split-width-threshold 0))
 (setq-default flycheck-disabled-checkers
 	      (append flycheck-disabled-checkers
 		      '(javascript-jshint)))
@@ -96,7 +121,7 @@
 (require 'python)
 (setq
   python-shell-interpreter "ipython"
-  ;;python-shell-interpreter-args "--pylab=tk"
+  python-shell-interpreter-args "--simple-prompt"
   python-shell-prompt-regexp "In \\[[0-9]+\\]: "
   python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
   python-shell-completion-setup-code
@@ -138,7 +163,7 @@
 (my-set-font-to-fixed-width)
 (add-hook 'python-mode-hook 'my-set-font-to-fixed-width)
 (add-hook 'org-mode-hook 'my-set-font-to-fixed-width)
-(add-hook 'markdown-mode-hook 'my-set-font-to-variable-width)
+(add-hook 'markdown-mode-hook 'my-set-font-to-fixed-width)
 (add-hook 'emacs-lisp-mode-hook 'my-set-font-to-fixed-width)
 
 ;; ess
@@ -153,20 +178,14 @@
 ;; css-mode
 (setq css-indent-offset 2)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(delete-selection-mode nil)
- '(ispell-program-name "aspell")
- '(org-agenda-files (quote ("~/org/tasks.org")))
- '(org-agenda-files (quote ("~/org/tasks.org")))
- '(split-height-threshold nil)
- '(split-width-threshold 0))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(yas-global-mode 1)
+(require 'yasnippet)
+
